@@ -1,0 +1,39 @@
+name: Deploy Hugo Site to AWS
+
+on:
+  push:
+    branches: [ main ]          # Triggers on push to main
+  workflow_dispatch:            # Allows manual trigger from GitHub UI
+
+permissions:
+  contents: read
+  id-token: write               # Needed for OIDC authentication
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive     # Important if your theme is a Git submodule
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'    # Or pin a version like '0.136.5'
+          extended: true            # Needed for Sass/SCSS processing
+
+      - name: Build site
+        run: hugo --minify          # Generates the /public folder
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::669012865819:role/github-actions-hugo-deploy
+          aws-region: us-east-1   # e.g., us-east-1
+
+      - name: Deploy to S3 and invalidate CloudFront
+        run: |
+          aws s3 sync public/ s3://arn:aws:s3:::my-site-architectn --delete
+          aws cloudfront create-invalidation --distribution-id arn:aws:cloudfront::669012865819:distribution/E2255H14ASB2W1--paths "/*"
