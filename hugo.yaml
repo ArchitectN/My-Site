@@ -1,5 +1,5 @@
-baseURL: "https://examplesite.com/"
-title: ExampleSite
+baseURL: "https://architectN.com/*"
+title: ArchitectN-Site
 pagination.pagerSize: 5
 theme: PaperMod
 
