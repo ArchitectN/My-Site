@@ -1,4 +1,4 @@
-baseURL: "https://architectN.com/*"
+baseURL: "https://architectN.com/"
 title: ArchitectN-Site
 pagination.pagerSize: 5
 theme: PaperMod
