@@ -36,4 +36,4 @@ jobs:
       - name: Deploy to S3 and invalidate CloudFront
         run: |
           aws s3 sync public/ s3://my-site-architectn --delete
-          aws cloudfront create-invalidation --distribution-id arn:aws:cloudfront::669012865819:distribution/E2255H14ASB2W1--paths "/*"
+          aws cloudfront create-invalidation --distribution-id E2255H14ASB2W1--paths "/*"
