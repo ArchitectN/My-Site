@@ -1,7 +1,7 @@
 ---
 title: "Kafka use case"
 summary: Devops Learning
-date: 2026-02-08
+date: 2026-05-22
 weight: 1
 aliases: ["/building-serverless-webapp"]
 tags: ["tech", "Docs", "Learnings", "devops"]
